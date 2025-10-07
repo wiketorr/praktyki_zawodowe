@@ -5,4 +5,4 @@ How to download this repository on your local machine:
 2. On the repository click the green "code" button and select https
 3. Copy the https link and open your terminal
 4. Navigate to where you want the project saved
-5. Type this command: git clone <your https link> 
+5. Type and run this command: git clone /your https link/ 
