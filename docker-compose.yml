@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      target: develop
+    image: rpg_sim
+    volumes:
+      - .:/workdir
+    command: ["python", "src/main.py"]
