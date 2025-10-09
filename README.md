@@ -11,3 +11,10 @@
 2. Build and run the docker container: 
    3. You will need a docker engine for this step. You can learn more here https://docs.docker.com/
    4. Type and run this command ```docker compose up```. This will build the image if it is not present on your machine and start it
+
+## Dependency management
+In order to install a new library use a makefile command.
+
+1. To add a production dependency use ```make add``` and follow the prompts
+2. To add a dev dependency use ```make add-dev``` and follow the prompts
+3. To remove a dependency use ```make remove``` and ```make remove-dev``` respectively
