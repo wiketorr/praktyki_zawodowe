@@ -1,4 +1,4 @@
-FROM python:3.14.0 as develop
+FROM python:3.14.0 AS develop
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 
