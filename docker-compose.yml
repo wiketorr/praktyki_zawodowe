@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      target: develop
+    image: rpg_sim
+    volumes:
+      - .:/workdir
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

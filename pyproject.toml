@@ -1,0 +1,14 @@
+[project]
+name='Warhammer_RPG_sim'
+version = "0.1.0"
+description = ""
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.119.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.0",
+]
+
