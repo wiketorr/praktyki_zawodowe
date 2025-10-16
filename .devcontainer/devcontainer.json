@@ -1,0 +1,7 @@
+{
+  "name": "rpg_sim_dev",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workdir",
+  "remoteUser": "root"
+}
