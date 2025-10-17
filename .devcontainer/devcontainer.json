@@ -3,5 +3,10 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workdir",
-  "remoteUser": "root"
+  "remoteUser": "root",
+  "customizations": {
+    "vscode":{
+      "extensions": ["ms-python.python"]
+    }
+  }
 }
