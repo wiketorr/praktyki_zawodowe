@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 import requests
 import secrets
+from .api.routers import user_router
+
 
 app = FastAPI(title="RPG sim")
 
+app.include_router(user_router.router)
 
 def get_number(dice: int) -> int:
     response = requests.get(
