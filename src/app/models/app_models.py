@@ -5,5 +5,6 @@ class User(BaseModel):  # We need a model that will represent user profile in th
     id: int
     username: str
     email: str
-    user_sessions: list[int]
-    user_characters: list[int]
+    password: str
+    user_sessions: list[int] | None = None
+    user_characters: list[int] | None = None
