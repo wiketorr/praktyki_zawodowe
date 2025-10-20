@@ -1,15 +1,10 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "username": "Wiktor",
-            "email": "wiktor@email.com",
-            "password": "20195928b721d4dd075ccd0a0da3ad07deb4e636b3dad143cda6a9e2afc29e23e2f5757a4639d0077280357d3e153017",
-            "user_sessions": null,
-            "user_characters": null
-        }
-    ],
-    "usernames": [
-        "Wiktor"
-    ]
+    "string": {
+        "id": "24690987-e8ec-4677-8b90-98aaa6e5dc64",
+        "username": "string",
+        "email": "user@example.com",
+        "password": "9034f34e9cf356e26219f9c7e1562772b20f1584b004e54a73eca336140b03f8aec4129e0d08c613be9d6b75eec334e6",
+        "user_sessions": null,
+        "user_characters": null
+    }
 }

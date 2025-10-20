@@ -1,11 +1,19 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from ..models.register_data import RegisterData
-from ...services.register_user import register_user
-
+from ...app.handlers.user_creation_handlers import UserCreationHandler
+from src.database.user_repository import UserRepository
+from src.app.services.user_service import UserService
 
 router = APIRouter()
 
+repository = UserRepository()
+service = UserService(repository)
+handler = UserCreationHandler(service)
+
 @router.post("/user/register")
-def register_user_endpoint(user_data: RegisterData):
-    return register_user(user_data)
+def register_user_endpoint(register_data: RegisterData):
+    try:
+        handler.handle(register_data)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))

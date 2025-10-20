@@ -43,10 +43,4 @@ class RegisterData(BaseModel):  # We need a model that will represent data that 
             raise ValueError("Password must have atleast one upper case letter")
         return password
     
-    @field_validator("username", mode="after")
-    def validate_username(cls, username:str) -> str:
-        with open("/workdir/src/database/users.json", "r") as file:
-            users_list = load(file)
-            if username in users_list["usernames"]:
-                raise ValueError("Username already taken")
-        return username
+    

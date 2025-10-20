@@ -4,7 +4,7 @@ import secrets
 from .api.routers import user_router
 
 
-app = FastAPI(title="RPG sim")
+app = FastAPI(title="RPG sim", debug=True)
 
 app.include_router(user_router.router)
 
