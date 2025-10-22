@@ -1,7 +1,10 @@
 from pydantic import BaseModel, EmailStr, field_validator, Field
 from json import load
 
-class RegisterData(BaseModel):  # We need a model that will represent data that user will be sending during account creation process.
+
+class RegisterData(
+    BaseModel
+):  # We need a model that will represent data that user will be sending during account creation process.
     username: str = Field(min_length=3)
     email: EmailStr
     password: str
@@ -42,7 +45,8 @@ class RegisterData(BaseModel):  # We need a model that will represent data that 
         if upper_case < 1:
             raise ValueError("Password must have atleast one upper case letter")
         return password
-    
+
+
 class LoginData(BaseModel):
     username: str
     password: str

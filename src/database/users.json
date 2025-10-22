@@ -14,5 +14,13 @@
         "password": "$argon2id$v=19$m=65536,t=3,p=4$ICOKFUJa0c2Ao8aEriD1cg$KR12pEnUOna3i+5eJVL5hrBdEFu0+4G8WNbPX77Lcn0",
         "user_sessions": null,
         "user_characters": null
+    },
+    "user": {
+        "id": "a0c318e6-9954-4fa0-9597-0118220543bf",
+        "username": "user",
+        "email": "user@example.com",
+        "password": "$argon2id$v=19$m=65536,t=3,p=4$HoXClTxDsGucBan9ue1oWw$/bz4xRnYlBrkpqWgeyr7B3G3XvS9dqc+sC5XrZFUMQU",
+        "user_sessions": null,
+        "user_characters": null
     }
 }
