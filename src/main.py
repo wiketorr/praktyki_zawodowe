@@ -1,40 +1,16 @@
 from fastapi import FastAPI
-import requests
-import secrets
+from contextlib import asynccontextmanager
 from .api.routers import user_router
+from src.app.config import Config
 
+config = Config()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.config = config
+    yield
+    
 
-app = FastAPI(title="RPG sim", debug=True)
-
+app = FastAPI(title="RPG sim", debug=True, lifespan=lifespan)
 app.include_router(user_router.router)
 
-def get_number(dice: int) -> int:
-    response = requests.get(
-        f"https://www.random.org/integers/?num=1&min=1&max={dice}&col=1&base=10&format=plain&rnd=new"
-    )
-    result = int(response.text.strip())
-    return result
 
-
-def get_rolls(dice: int, rolls: int) -> list[int]:
-    return [get_number(dice) for _ in range(rolls)]
-
-
-@app.get("/roll")
-def response_dice_rolls(dice: int, rolls: int) -> dict[str, list[int]]:
-    result = get_rolls(dice, rolls)
-    return {"result": result}
-
-
-def roll_dice(dice: int) -> int:
-    return secrets.randbelow(dice) + 1
-
-
-def get_rolls_secrets(dice: int, rolls: int) -> list[int]:
-    return [roll_dice(dice) for _ in range(rolls)]
-
-
-@app.get("/secret_roll")
-def response_secret(dice: int, rolls: int) -> dict[str, list[int]]:
-    result = get_rolls_secrets(dice, rolls)
-    return {"result": result}

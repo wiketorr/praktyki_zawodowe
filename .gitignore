@@ -3,3 +3,4 @@
 .history/
 *.code-workspace
 .ruff_cache
+.env

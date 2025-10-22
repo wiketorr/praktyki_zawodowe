@@ -43,4 +43,6 @@ class RegisterData(BaseModel):  # We need a model that will represent data that 
             raise ValueError("Password must have atleast one upper case letter")
         return password
     
-    
+class LoginData(BaseModel):
+    username: str
+    password: str

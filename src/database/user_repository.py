@@ -1,5 +1,5 @@
 import json
-from ..app.models.app_models import User
+from src.app.models.app_models import User
 
 
 class UserRepository():
