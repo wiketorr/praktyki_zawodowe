@@ -21,8 +21,8 @@ class UserService:
         self._secret_key = secret_key
 
     def register_user(self, user_data: RegisterData) -> User:
-        if self._user_repository.get_user(user_data.username):
-            raise ValueError("Username already taken")
+       # if self._user_repository.get_user(user_data.username):
+        #    raise ValueError("Username already taken")
         password = user_data.password
         hashed_password = self._hash_password(password)
         new_user = User(
@@ -32,7 +32,7 @@ class UserService:
                 "password": hashed_password,
             }
         )
-        self._user_repository.save_user(new_user)
+        self._user_repository.save_user_db(new_user)
         return new_user
 
     def _create_access_token(self, data: dict, expires_delta: timedelta | None = None):

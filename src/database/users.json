@@ -8,10 +8,10 @@
         "user_characters": null
     },
     "string": {
-        "id": "6467e986-70b2-4454-933a-0171b06ecec7",
+        "id": "fcf0790f-e26e-4a87-99e4-6427ab5735be",
         "username": "string",
         "email": "user@example.com",
-        "password": "$argon2id$v=19$m=65536,t=3,p=4$ICOKFUJa0c2Ao8aEriD1cg$KR12pEnUOna3i+5eJVL5hrBdEFu0+4G8WNbPX77Lcn0",
+        "password": "$argon2id$v=19$m=65536,t=3,p=4$INxYFiAvLOtpXxlE2niMjQ$ddjcKuy6fb+rK4QFPBuMEpfQYifriPV3UIAwoXvjlFA",
         "user_sessions": null,
         "user_characters": null
     },
