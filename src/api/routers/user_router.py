@@ -4,13 +4,16 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 
 from src.api.models.user_data import RegisterData
+
 from src.app.handlers.user_creation_handler import UserCreationHandler
 from src.app.handlers.get_current_user_handler import GetCurrentUserHandler
 from src.app.handlers.user_login_handler import UserLoginHandler
+
 from src.api.dependencies.dependencies import (
     get_user_creation_dependency,
     get_login_dependency,
     get_current_user_dependency,
+
 )
 
 router = APIRouter()
@@ -42,3 +45,5 @@ def read_users_me(
     handler: GetCurrentUserHandler = Depends(get_current_user_dependency),
 ):
     return handler.handle(token)
+
+

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from .api.routers import user_router
+from src.api.routers import user_router
+from src.api.routers import session_router
 from src.app.config import Config
 
 config = Config()
@@ -14,3 +15,4 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="RPG sim", debug=True, lifespan=lifespan)
 app.include_router(user_router.router)
+app.include_router(session_router.router)

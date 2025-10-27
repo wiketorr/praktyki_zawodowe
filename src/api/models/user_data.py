@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, field_validator, Field
-from json import load
+
 
 
 class RegisterData(
@@ -46,7 +46,3 @@ class RegisterData(
             raise ValueError("Password must have atleast one upper case letter")
         return password
 
-
-class LoginData(BaseModel):
-    username: str
-    password: str

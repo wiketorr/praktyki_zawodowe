@@ -1,7 +1,5 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, ARRAY
-
-
-metadata = MetaData()
+from sqlalchemy import Table, Column, String, ARRAY
+from src.database.database import metadata
 
 user_table = Table(
     "user",
@@ -10,6 +8,6 @@ user_table = Table(
     Column("username", String, unique=True, index=True),
     Column("password", String),
     Column("email", String),
-    Column("user_sessions", ARRAY(Integer), nullable=True, default=[]),
-    Column("user_characters", ARRAY(Integer), nullable=True, default=[]),
+    Column("user_sessions", ARRAY(String), nullable=True, default=[]),
+    Column("user_characters", ARRAY(String), nullable=True, default=[])
 )

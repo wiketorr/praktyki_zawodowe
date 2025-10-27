@@ -25,7 +25,7 @@ class UserService:
         if self._user_repository.get_user_db(user_data.username):
             raise ValueError("Username already taken")
         password = user_data.password
-        hashed_password = self._hash_password(password)
+        hashed_password = self.hash_password(password)
         new_user = User(
             **{
                 "id": str(uuid4()),
@@ -65,7 +65,7 @@ class UserService:
         user = self._user_repository.get_user_db(username)
         if not user:
             return False
-        if not self._verify_password(password, user.password):
+        if not self.verify_password(password, user.password):
             return False
         return user
 
@@ -87,10 +87,10 @@ class UserService:
             raise credentials_exception
         return user
 
-    def _verify_password(self, plain_password, hashed_password):
+    def verify_password(self, plain_password, hashed_password):
         hash = PasswordHash.recommended()
         return hash.verify(plain_password, hashed_password)
 
-    def _hash_password(self, password: str) -> str:
+    def hash_password(self, password: str) -> str:
         hash = PasswordHash.recommended()
         return hash.hash(password)
