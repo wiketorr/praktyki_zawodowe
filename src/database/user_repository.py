@@ -1,46 +1,28 @@
-import json
 from src.app.models.app_models import User
+from src.database.models.user_table import user_table
+from sqlalchemy.orm import Session
 import sqlalchemy as sa
-from src.database.models.user_table import metadata, user_table
 
-engine = sa.create_engine("postgresql://devuser:devpass@db:5432/rpg_sim")
 
-metadata.create_all(bind=engine)
-
-with engine.connect() as conn:
-    result = conn.execute(sa.select(user_table))
-    rows = result.fetchall()
-    for row in rows:
-        print(row)
 
 class UserRepository:
+    def __init__(self,db_session: Session):
+        self._db_session = db_session
+        
+    def save_user_db(self, registered_user: User) -> None:
+        save_user_query = sa.insert(user_table).values(id = registered_user.id,username = registered_user.username,password = registered_user.password, email = registered_user.email)
+        self._db_session.execute(save_user_query)
+        self._db_session.commit()
 
-    def save_user_db(self, registerd_user: User) -> None:
-        print('siema')
-        query = sa.insert(user_table).values(id = str(registerd_user.id),username = registerd_user.username,password = registerd_user.password, email = registerd_user.email)
-        print('siema2')
-        with engine.connect() as conn:
-            conn.execute(query)
-            conn.commit  
-        print('siema3')
-    def save_user(self, registered_user: User) -> None:
-        users_list = self._get_user_list()
 
-        users_list[registered_user.username] = registered_user.model_dump(mode="json")
-
-        with open("/workdir/src/database/users.json", "w") as db:
-            json.dump(users_list, db, indent=4)
-
-        return None
-
-    def get_user(self, username: str) -> User | None:
-        users_list = self._get_user_list()
-        try:
-            user = users_list[username]
-            return User(**user)
-        except KeyError:
+    def get_user_db(self, input_username: str) -> User | None:
+        get_user_query = sa.select(user_table).where(user_table.c.username == input_username)
+        user_db = self._db_session.execute(get_user_query).fetchone()
+        if not user_db:
             return None
-
-    def _get_user_list(self) -> dict:
-        with open("/workdir/src/database/users.json", "r") as file:
-            return json.load(file)
+        else:
+            user_dict = dict(user_db._mapping)
+            user = User(
+                **user_dict
+            )
+            return user
