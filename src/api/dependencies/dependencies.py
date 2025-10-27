@@ -38,3 +38,5 @@ def get_current_user_dependency(
     get_current_user_service: UserService = Depends(get_user_service),
 ):
     return GetCurrentUserHandler(user_service=get_current_user_service)
+
+
