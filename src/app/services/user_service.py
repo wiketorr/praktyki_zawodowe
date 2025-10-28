@@ -4,6 +4,7 @@ from src.app.models.app_models import User
 from src.app.models.app_models import Token
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import HTTPException, status
+from uuid import uuid4
 
 
 import jwt
@@ -21,18 +22,19 @@ class UserService:
         self._secret_key = secret_key
 
     def register_user(self, user_data: RegisterData) -> User:
-        if self._user_repository.get_user(user_data.username):
+        if self._user_repository.get_user_db(user_data.username):
             raise ValueError("Username already taken")
         password = user_data.password
         hashed_password = self._hash_password(password)
         new_user = User(
             **{
+                "id": str(uuid4()),
                 "username": user_data.username,
                 "email": user_data.email,
                 "password": hashed_password,
             }
         )
-        self._user_repository.save_user(new_user)
+        self._user_repository.save_user_db(new_user)
         return new_user
 
     def _create_access_token(self, data: dict, expires_delta: timedelta | None = None):
@@ -60,7 +62,7 @@ class UserService:
         return Token(access_token=access_token, token_type="Bearer")
 
     def _authenticate_user(self, username, password):
-        user = self._user_repository.get_user(username)
+        user = self._user_repository.get_user_db(username)
         if not user:
             return False
         if not self._verify_password(password, user.password):
@@ -80,7 +82,7 @@ class UserService:
                 raise credentials_exception
         except InvalidTokenError:
             raise credentials_exception
-        user = self._user_repository.get_user(username)
+        user = self._user_repository.get_user_db(username)
         if user is None:
             raise credentials_exception
         return user

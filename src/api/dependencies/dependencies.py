@@ -3,11 +3,18 @@ from src.app.handlers.get_current_user_handler import GetCurrentUserHandler
 from src.app.handlers.user_login_handler import UserLoginHandler
 from src.database.user_repository import UserRepository
 from src.app.services.user_service import UserService
+from src.database.models.user_table import metadata
 from fastapi import Request, Depends
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
 def get_user_repository():
-    return UserRepository()
+    engine = create_engine("postgresql://devuser:devpass@db:5432/rpg_sim")
+    metadata.create_all(bind=engine)
+    SesionLocal = sessionmaker(bind=engine)
+    session = SesionLocal()
+    return UserRepository(session)
 
 
 def get_user_service(
