@@ -1,4 +1,4 @@
-from src.app.models.app_models import Session
+from src.app.models.app_models import GameSession
 from src.database.models.session_table import session_table
 from src.database.models.user_sessions_table import user_sessions
 from sqlalchemy import func
@@ -21,7 +21,8 @@ class SessionRepository:
             return None
         else:
             session_dict = dict(session_db._mapping)
-            session = Session(**session_dict)
+            print(session_dict)
+            session = GameSession(**session_dict)
             return session
 
     def join_user_to_session(self, user_id:str, session_id:str, role:str):

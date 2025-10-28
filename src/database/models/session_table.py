@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, ARRAY, Boolean
+from sqlalchemy import Table, Column, Integer, String, ARRAY, Boolean
 from src.database.database import metadata
 
 session_table = Table(

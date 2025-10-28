@@ -1,6 +1,6 @@
 from src.app.services.session_service import SessionService
 from src.api.models.session_data import SessionData
-from src.app.services.session_service import UserService
+
 
 
 class SessionCreationHandler:
@@ -8,4 +8,4 @@ class SessionCreationHandler:
         self._session_service = session_service
 
     def handle(self, session_data: SessionData):
-        return self._session_service.register_session(session_data)
+        return self._session_service.create_session(session_data)

@@ -12,7 +12,7 @@ from src.api.dependencies.dependencies import (get_session_creation_dependency,g
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
 
-@router.post("session/create_session")
+@router.post("/session/create_session")
 def create_session(
     session_data: SessionData,
     token: Annotated[str, Depends(oauth2_scheme)],
@@ -20,7 +20,7 @@ def create_session(
 ):
     return handler.handle(session_data=session_data)
 
-@router.get("session/join_session")
+@router.post("/session/join_session")
 def join_session(
     token: Annotated[str, Depends(oauth2_scheme)],
     join_session_data: JoinSessionData,

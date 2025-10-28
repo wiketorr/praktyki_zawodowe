@@ -7,4 +7,4 @@ class JoinSessionHandler:
         self._session_service = session_service
 
     def handle(self, join_session_data: JoinSessionData, token:str):
-        return self._session_service.register_session(join_session_data,token)
+        return self._session_service.join_session(join_session_data,token)

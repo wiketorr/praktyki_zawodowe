@@ -15,7 +15,7 @@ class Token(BaseModel):
     token_type: str
 
 
-class Session(BaseModel):
+class GameSession(BaseModel):
     id: str
     name: str
     password: str
