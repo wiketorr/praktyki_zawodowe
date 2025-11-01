@@ -2,13 +2,15 @@ from src.database.user_repository import UserRepository
 from src.api.models.user_data import RegisterData
 from src.app.models.app_models import User
 from src.app.models.app_models import Token
+from src.app.services.helpers.hash_password import hash_password
+from src.app.services.helpers.verify_password import verify_password
+
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import HTTPException, status
 from uuid import uuid4
 
 
 import jwt
-from pwdlib import PasswordHash
 from jwt.exceptions import InvalidTokenError
 from datetime import datetime, timedelta, timezone
 
@@ -25,7 +27,7 @@ class UserService:
         if self._user_repository.get_user_db(user_data.username):
             raise ValueError("Username already taken")
         password = user_data.password
-        hashed_password = self.hash_password(password)
+        hashed_password = hash_password(password)
         new_user = User(
             **{
                 "id": str(uuid4()),
@@ -65,7 +67,7 @@ class UserService:
         user = self._user_repository.get_user_db(username)
         if not user:
             return False
-        if not self.verify_password(password, user.password):
+        if not verify_password(password, user.password):
             return False
         return user
 
@@ -87,10 +89,5 @@ class UserService:
             raise credentials_exception
         return user
 
-    def verify_password(self, plain_password, hashed_password):
-        hash = PasswordHash.recommended()
-        return hash.verify(plain_password, hashed_password)
 
-    def hash_password(self, password: str) -> str:
-        hash = PasswordHash.recommended()
-        return hash.hash(password)
+   

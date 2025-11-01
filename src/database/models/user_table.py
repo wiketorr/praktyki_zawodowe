@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, String, ARRAY
+from sqlalchemy import Table, Column, String, ARRAY, ForeignKey
 from src.database.database import metadata
 
 user_table = Table(
@@ -8,6 +8,5 @@ user_table = Table(
     Column("username", String, unique=True, index=True),
     Column("password", String),
     Column("email", String),
-    Column("user_sessions", ARRAY(String), nullable=True, default=[]),
-    Column("user_characters", ARRAY(String), nullable=True, default=[])
+    Column("user_characters", ARRAY(String), nullable=True, default=[]) 
 )

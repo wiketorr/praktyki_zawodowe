@@ -3,6 +3,9 @@ from src.app.handlers.get_current_user_handler import GetCurrentUserHandler
 from src.app.handlers.user_login_handler import UserLoginHandler
 from src.app.handlers.session_creation_handler import SessionCreationHandler
 from src.app.handlers.join_session_handler import JoinSessionHandler
+from src.app.handlers.leave_session_handler import LeaveSessionHandler
+from src.app.handlers.delete_session_handler import DeleteSessionHandler
+from src.app.handlers.show_user_sessions_handler import ShowUserSessionsHandler
 
 from src.database.user_repository import UserRepository
 from src.app.services.user_service import UserService
@@ -50,9 +53,10 @@ def get_current_user_handler(
 
 #session dependency
 def get_session_creation_handler(
-    register_session_service: SessionService = Depends(get_session_service)
+    register_session_service: SessionService = Depends(get_session_service),
+    user_service: UserRepository = Depends(get_user_service)
 ):
-    return SessionCreationHandler(session_service=register_session_service)
+    return SessionCreationHandler(session_service=register_session_service, user_service=user_service)
 
 
 def get_join_session_handler(
@@ -60,3 +64,21 @@ def get_join_session_handler(
     user_service: UserRepository = Depends(get_user_service)
 ):
     return JoinSessionHandler(session_service=join_session_service, user_service=user_service)
+
+def get_leave_session_handler(
+    leave_session_service: SessionService = Depends(get_session_service), 
+    user_service: UserRepository = Depends(get_user_service)
+):
+    return LeaveSessionHandler(session_service=leave_session_service, user_service=user_service)
+
+def get_delete_session_handler(
+    delete_session_service: SessionService = Depends(get_session_service), 
+    user_service: UserRepository = Depends(get_user_service)
+):
+    return DeleteSessionHandler(session_service=delete_session_service, user_service=user_service)
+
+def get_show_user_sessions_handler(
+    show_user_sessions_service: SessionService = Depends(get_session_service), 
+    user_service: UserRepository = Depends(get_user_service)
+):
+    return ShowUserSessionsHandler(session_service=show_user_sessions_service, user_service=user_service)

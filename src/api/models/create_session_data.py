@@ -1,8 +1,9 @@
 from pydantic import BaseModel, field_validator, Field
 
-class SessionData(BaseModel):
+class CreateSessionData(BaseModel):
     name: str = Field(min_length=4)
     password: str
+    player_cap: int = 4
     @field_validator("password", mode="after")
     def validate_password(cls, password: str, username: str) -> str:
         numbers = 0
@@ -39,3 +40,11 @@ class SessionData(BaseModel):
         if upper_case < 1:
             raise ValueError("Password must have atleast one upper case letter")
         return password
+    @field_validator("player_cap", mode="after")
+    def validate_player_cap(cls,player_cap:int) -> int:
+        if player_cap > 20:
+            raise ValueError("Session can take up to 20 players")
+        elif player_cap < 1:
+            raise ValueError("Session need atleast 1 player")
+        else:
+            return player_cap

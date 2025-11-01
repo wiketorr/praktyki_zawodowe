@@ -10,9 +10,9 @@ from src.app.handlers.get_current_user_handler import GetCurrentUserHandler
 from src.app.handlers.user_login_handler import UserLoginHandler
 
 from src.api.dependencies.dependencies import (
-    get_user_creation_dependency,
-    get_login_dependency,
-    get_current_user_dependency,
+    get_user_creation_handler,
+    get_login_handler,
+    get_current_user_handler,
 
 )
 
@@ -23,7 +23,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
 @router.post("/user/register")
 def register_user_endpoint(
     register_data: RegisterData,
-    handler: UserCreationHandler = Depends(get_user_creation_dependency),
+    handler: UserCreationHandler = Depends(get_user_creation_handler),
 ):
     try:
         return handler.handle(register_data)
@@ -34,7 +34,7 @@ def register_user_endpoint(
 @router.post("/user/login")
 def login(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    handler: UserLoginHandler = Depends(get_login_dependency),
+    handler: UserLoginHandler = Depends(get_login_handler),
 ):
     return handler.handle(form_data)
 
@@ -42,7 +42,7 @@ def login(
 @router.get("/user/me")
 def read_users_me(
     token: Annotated[str, Depends(oauth2_scheme)],
-    handler: GetCurrentUserHandler = Depends(get_current_user_dependency),
+    handler: GetCurrentUserHandler = Depends(get_current_user_handler),
 ):
     return handler.handle(token)
 
